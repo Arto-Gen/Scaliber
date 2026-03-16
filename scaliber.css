@@ -1,0 +1,637 @@
+:root {
+    --bg-color: #f8f9fd;
+    --sidebar-bg: rgba(255, 255, 255, 0.7);
+    --text-color: #2d3436;
+    --accent-color: #6c5ce7;
+    --accent-glow: rgba(108, 92, 231, 0.3);
+    --border-color: rgba(0, 0, 0, 0.05);
+    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sidebar-header h2 { margin-top: 0; font-size: 1.2rem; color: #007bff; }
+
+.dark-mode {
+    --bg-color: #0f0f12;
+    --sidebar-bg: rgba(20, 20, 25, 0.7);
+    --text-color: #dfe6e9;
+    --border-color: rgba(255, 255, 255, 0.05);
+    --card-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Eye-Catching Background Animation */
+body {
+    background: radial-gradient(circle at top right, var(--accent-glow), transparent 400px), 
+                var(--bg-color);
+    min-height: 100vh;
+}
+
+/* Glassmorphism Sidebar */
+.sidebar {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-right: 1px solid var(--border-color) !important;
+}
+
+/* Floating Editor Paper Effect */
+.content-area {
+    padding: 40px 10%;
+    max-width: 900px;
+    margin: 40px auto;
+    background: var(--bg-color);
+    border-radius: 20px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--border-color);
+}
+
+/* Stylish Buttons */
+#new-note-btn {
+    background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+    box-shadow: 0 4px 15px var(--accent-glow);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#new-note-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px var(--accent-glow);
+}
+
+/* Toolbar Gradient */
+.toolbar {
+    background: var(--sidebar-bg);
+    backdrop-filter: blur(5px);
+    border-radius: 0 0 15px 15px;
+    margin: 0 20px;
+    border: 1px solid var(--border-color);
+}
+
+* { box-sizing: border-box; transition: background 0.3s, color 0.3s; }
+
+body {
+    margin: 0;
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg-color);
+    color: var(--text-color);
+}
+
+.app-container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.sidebar-header h2 { 
+    margin-top: 0; 
+    font-size: 1.2rem; 
+    color: #007bff !important; 
+}
+
+.sidebar.active {
+    display: flex !important;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    z-index: 9999;
+    width: 260px;
+}
+
+#new-note-btn {
+    width: 100%;
+    padding: 10px;
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.note-list { flex-grow: 1; overflow-y: auto; }
+
+.note-item {
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.note-item:hover { background: var(--hover-color); }
+
+/* Editor */
+.editor-section { flex-grow: 1; display: flex; flex-direction: column; }
+
+.toolbar {
+    padding: 10px 40px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.toolbar button {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.ai-btn { background: #7c4dff1a !important; color: #7c4dff !important; border-color: #7c4dff !important; }
+
+.content-area { padding: 40px 10%; flex-grow: 1; overflow-y: auto; }
+
+#note-title {
+    width: 100%;
+    font-size: 2.5rem;
+    font-weight: 700;
+    border: none;
+    background: transparent;
+    color: var(--text-color);
+    outline: none;
+    margin-bottom: 20px;
+    cursor: text;
+    caret-color: var(--accent-color);
+}
+
+#editor {
+    min-height: 400px;
+    outline: none;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* Modal for Flashcards */
+.modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); }
+.modal-content { background: var(--bg-color); margin: 10% auto; padding: 20px; width: 80%; border-radius: 10px; position: relative;}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .sidebar { display: none; } /* In a full app, you'd add a hamburger menu */
+    .content-area { padding: 20px; }
+}
+
+/* Flashcard Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: var(--bg-color);
+    margin: 5% auto;
+    padding: 30px;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 15px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 28px;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+/* The Flip Card Container */
+.flashcard-wrapper {
+    perspective: 1000px;
+    width: 100%;
+    height: 250px;
+    margin: 20px 0;
+}
+
+.flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+}
+
+.flashcard-inner.is-flipped {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border-radius: 12px;
+    font-size: 1.2rem;
+    border: 2px solid var(--accent-color);
+}
+
+.card-front {
+    background-color: var(--sidebar-bg);
+    color: var(--text-color);
+}
+
+.card-back {
+    background-color: var(--accent-color);
+    color: white;
+    transform: rotateY(180deg);
+}
+
+.modal-controls button {
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.modal-controls button:hover:not([style*="opacity"]) {
+    background: var(--accent-color) !important;
+    color: white !important;
+}
+
+/* Progress Bar */
+.progress-container {
+    width: 100%;
+    height: 6px;
+    background: var(--hover-color);
+    border-radius: 10px;
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #7c4dff, #007bff);
+    width: 0%;
+    transition: width 0.4s ease;
+}
+
+/* Enhanced Card Design */
+.flashcard-wrapper {
+    perspective: 1000px;
+    width: 100%;
+    height: 300px; /* Slightly taller for better feel */
+    margin: 20px 0;
+}
+
+/* Ensure long text stays inside the card with nice spacing */
+.card-front, .card-back {
+    padding: 30px !important; /* Extra breathing room */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Start from top for long text */
+    text-align: left;
+    overflow-y: auto; /* Enable scrolling for long content */
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: var(--accent-color) transparent;
+}
+
+/* Custom Scrollbar for Chrome/Safari */
+.card-front::-webkit-scrollbar, .card-back::-webkit-scrollbar {
+    width: 6px;
+}
+
+.card-front::-webkit-scrollbar-thumb, .card-back::-webkit-scrollbar-thumb {
+    background-color: var(--accent-color);
+    border-radius: 10px;
+}
+
+/* Adjusting the card's inner text size for long content */
+.card-front div, .card-back div {
+    margin-top: 10px;
+    line-height: 1.5;
+}
+
+.card-back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center !important; /* Forces center alignment for punchy answers */
+    overflow: hidden !important; /* Prevents scrollbars on short text */
+}
+
+.card-back div {
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+/* Adjust the wrapper to be a bit taller for long stories */
+.flashcard-wrapper {
+    perspective: 1000px;
+    width: 100%;
+    height: 350px; /* Increased from 300px */
+    margin: 15px 0;
+}
+/* Navigation Buttons */
+.modal-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 25px;
+}
+
+.nav-btn {
+    background: var(--hover-color);
+    color: var(--text-color);
+    border: none;
+    padding: 12px 25px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.nav-btn:hover:not(:disabled) {
+    background: var(--accent-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.secondary-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.speaker-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    color: #7c4dff;
+    cursor: pointer;
+    font-size: 1.1rem;
+    z-index: 10;
+    transition: transform 0.2s;
+}
+
+.speaker-btn:hover {
+    transform: scale(1.2);
+}
+
+.card-back .speaker-btn {
+    color: white; /* Contrast for the purple background */
+}
+
+.action-btn i {
+    margin-right: 6px;
+}
+
+/* Ensure the AI button stands out but fits the theme */
+.action-btn.ai {
+    background: linear-gradient(135deg, #7c4dff, #5e35b1);
+    color: white;
+    border: none;
+    box-shadow: 0 2px 8px rgba(124, 77, 255, 0.3);
+}
+
+.action-btn.ai:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(124, 77, 255, 0.4);
+}
+.editor-status {
+    padding: 10px 0;
+    font-size: 0.85rem;
+    color: #888;
+    border-top: 1px solid var(--border-color);
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+#editor {
+    text-align: left; /* Default */
+}
+
+#editor div, #editor p {
+    text-align: inherit;
+}
+
+/* Animation for the content appearing */
+@keyframes fadeInSlide {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Apply this class via JavaScript */
+.fade-in {
+    animation: fadeInSlide 0.4s ease-out forwards;
+}
+
+/* Smooth transition for note items in the sidebar */
+.note-item {
+    transition: all 0.2s ease;
+}
+
+.note-item:active {
+    transform: scale(0.95);
+}
+
+#theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px;
+    background: var(--hover-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-color);
+    cursor: pointer;
+    font-weight: 500;
+}
+
+#theme-icon {
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
+    font-size: 1.1rem;
+    color: #f1c40f; /* Sun/Moon gold color */
+}
+
+.rotate-icon {
+    transform: rotate(360deg);
+}
+
+/* Eye-catching Toolbar Buttons */
+.toolbar button, .toolbar select, .toolbar input[type="color"] {
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.toolbar button:hover {
+    background: var(--accent-color);
+    color: white !important;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px var(--accent-glow);
+}
+
+.toolbar button:active {
+    transform: translateY(0);
+    filter: brightness(0.9);
+}
+
+/* Specific styling for the AI and Action buttons to make them stand out */
+.ai-btn, .action-btn {
+    border: none !important;
+    background: linear-gradient(135deg, #7c4dff, #007bff) !important;
+    color: white !important;
+    font-weight: 600;
+    padding: 8px 16px !important;
+}
+
+.ai-btn:hover, .action-btn:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 8px 20px rgba(124, 77, 255, 0.4) !important;
+}
+
+/* Tooltip-like effect for the color picker */
+#colorPicker {
+    padding: 2px !important;
+    width: 40px;
+    height: 35px;
+    overflow: hidden;
+}
+
+/* Eye-catching Flashcard Modal */
+.modal-content {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    border-radius: 24px;
+    padding: 40px;
+}
+
+.flashcard-wrapper {
+    height: 350px;
+}
+
+.card-front {
+    background: linear-gradient(135deg, var(--bg-color), var(--hover-color));
+    border: 2px solid var(--accent-color);
+    box-shadow: inset 0 0 15px var(--accent-glow);
+}
+
+.card-back {
+    background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+    border: none;
+}
+@media (max-width: 768px) {
+    .sidebar-header h2 {
+        color: #007bff
+    }
+    /* Floating Side Bar for Mobile */
+    .mobile-actions {
+        display: flex;
+        flex-direction: column; /* Stacked vertically */
+        position: fixed;
+        right: 15px; /* Moved to the side */
+        top: 50%; /* Centered vertically */
+        transform: translateY(-50%);
+        background: var(--accent-color);
+        padding: 15px 10px;
+        border-radius: 30px;
+        gap: 20px;
+        box-shadow: -5px 5px 20px rgba(0,0,0,0.2);
+        z-index: 10000;
+    }
+
+    .mobile-actions button {
+        background: transparent;
+        border: none;
+        color: white;
+        font-size: 1.3rem;
+        padding: 5px;
+    }
+
+    /* Adjust the editor padding so text doesn't hide behind the new buttons */
+    .content-area { 
+        padding-right: 70px !important; 
+    }
+}
+
+#editor input[type="checkbox"] {
+    accent-color: var(--accent-color); /* Makes the checkmark your theme color */
+    transition: transform 0.2s;
+}
+
+#editor input[type="checkbox"]:hover {
+    transform: scale(1.2);
+}
+
+/* Optional: Strike-through text when checkbox is clicked */
+#editor input[type="checkbox"]:checked + span, 
+#editor input[type="checkbox"]:checked + font {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+.note-item.active {
+    background: var(--accent-glow);
+    border-left: 4px solid var(--accent-color);
+    font-weight: 600;
+}
+
+.delete-icon {
+    opacity: 0;
+    color: #ff7675;
+    transition: opacity 0.2s;
+}
+.note-item:hover .delete-icon {
+    opacity: 1;
+}

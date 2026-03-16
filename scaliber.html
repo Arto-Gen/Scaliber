@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scaliber Notes</title>
+    <link rel="stylesheet" href="scaliber.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="light-mode">
+    <div class="ambient-glow" style="position: fixed; top: -10%; right: -10%; width: 40%; height: 40%; background: var(--accent-glow); filter: blur(120px); border-radius: 50%; z-index: -1;"></div>
+
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+            <img src="logo.png" alt="Scaliber Logo" style="width: 40px; height: 40px; margin-bottom: 10px;">
+            <h2>Scaliber</h2>
+             <button id="new-note-btn"><i class="fas fa-plus"></i> New Note</button>
+    </div>
+            <nav class="note-list" id="note-list">
+                </nav>
+            <div class="sidebar-footer">
+                <button id="theme-toggle">
+    <i id="theme-icon" class="fas fa-moon"></i>
+    <span id="theme-text">Dark Mode</span>
+</button>
+            </div>
+        </aside>
+        
+
+        <main class="editor-section">
+            <header class="toolbar">
+    <div class="format-group" style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <div style="display: flex; gap: 4px; padding-right: 10px; border-right: 1px solid var(--border-color);">
+            <button onclick="format('bold')"><i class="fas fa-bold"></i></button>
+            <button onclick="format('italic')"><i class="fas fa-italic"></i></button>
+            <button onclick="format('underline')"><i class="fas fa-underline"></i></button>
+        </div>
+
+        <div style="display: flex; gap: 4px; padding-right: 10px; border-right: 1px solid var(--border-color);">
+            <button onclick="format('justifyLeft')"><i class="fas fa-align-left"></i></button>
+            <button onclick="format('justifyCenter')"><i class="fas fa-align-center"></i></button>
+            <button onclick="format('justifyRight')"><i class="fas fa-align-right"></i></button>
+            <button onclick="format('justifyFull')" title="Justify Text">
+    <i class="fas fa-align-justify"></i>
+</button>
+
+<button onclick="toggleCheckbox()" title="Add Checkbox">
+    <i class="fas fa-check-square"></i>
+</button>
+            <button onclick="format('insertUnorderedList')"><i class="fas fa-list-ul"></i></button>
+        </div>
+
+        <input type="color" id="colorPicker" onchange="format('foreColor', this.value)">
+        <select onchange="changeLineHeight(this.value)">
+            <option value="1.5">Line Spacing</option>
+            <option value="1.0">Single</option>
+            <option value="2.0">Double</option>
+        </select>
+    </div>
+
+    <div class="ai-group" style="display: flex; gap: 10px;">
+        <button onclick="summarizeText()" class="ai-btn">✨ AI Summarize</button>
+        <button onclick="generateFlashcards()" class="ai-btn">🗂️ Flashcards</button>
+        <button onclick="exportToPDF()" class="action-btn"><i class="fas fa-file-export"></i> PDF</button>
+        <button id="fav-btn" onclick="toggleFavorite()"><i class="far fa-star"></i></button>
+    </div>
+</header>
+
+            <div class="content-area">
+                <div class="editor-status">
+                <span id="last-saved">Last saved: Just now</span>
+                <span id="word-count">0 words</span> | 
+                <span id="reading-time">0 min read</span>
+            </div>
+                <input type="text" id="note-title" placeholder="Untitled Note" autocomplete="off">
+                <div id="editor" contenteditable="true" placeholder="Start typing your brilliance..."></div>
+            </div>
+        </main>
+    </div>
+
+    <div id="flashcard-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3><i class="fas fa-graduation-cap"></i> Study Session</h3>
+            <span class="close" onclick="closeModal()">&times;</span>
+        </div>
+        
+        <div class="progress-container">
+            <div id="progress-bar" class="progress-fill"></div>
+        </div>
+
+        <div id="flashcard-container">
+            </div>
+
+        <div class="modal-footer">
+            <button onclick="shuffleCards()" class="secondary-btn"><i class="fas fa-random"></i> Shuffle Deck</button>
+        </div>
+    </div>
+</div>
+
+<div id="flashcard-modal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h3>Study Mode</h3>
+        <div id="flashcard-container">
+            </div>
+    </div>
+</div>
+    
+    <script src="scaliber.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <div class="mobile-actions">
+    <button onclick="createNewNoteMobile()" title="New Note"><i class="fas fa-plus"></i></button>
+    <button onclick="toggleThemeMobile()" title="Dark Mode"><i class="fas fa-moon"></i></button>
+    <button onclick="toggleSidebarMobile()" title="Notes List"><i class="fas fa-list"></i></button>
+</div>
+</body>
+</html>
